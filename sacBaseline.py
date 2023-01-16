@@ -4,10 +4,10 @@ import gym
 from stable_baselines3.sac.sac import SAC
 
 env = gym.make("MountainCarContinuous-v0")#, render_mode="human")
-
 model = SAC("MlpPolicy", env, verbose=1, seed=34) #PPO("MlpPolicy", env, verbose=1)
-model.learn(total_timesteps=10_000)
-
+# model=model.load('sacMountainCarTest.pt', env)
+model.learn(total_timesteps=200_000)
+model.save('sacMountainCarTest.pt')
 vec_env = model.get_env()
 obs = vec_env.reset()
 for i in range(1000):
