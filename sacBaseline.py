@@ -1,13 +1,17 @@
 import torch
 import gym
 
-from stable_baselines3.sac.sac import SAC
+from stable_baselines3.sac.sac import SAC #doesn't work     #
+# from stable_baselines3.ppo.ppo import PPO #works!           # doesn't
+# from stable_baselines3.a2c.a2c import A2C #doesn't work   #
+# from stable_baselines3.dqn.dqn import DQN #works!         #
+# from stable_baselines3.ddpg.ddpg import DDPG #slow af     #
 
-env = gym.make("MountainCarContinuous-v0")#, render_mode="human")
-model = SAC("MlpPolicy", env, verbose=1, seed=34) #PPO("MlpPolicy", env, verbose=1)
+env = gym.make("CarRacing-v0")#, render_mode="human")
+model = SAC("MlpPolicy", env, verbose=1, seed=34)
 # model=model.load('sacMountainCarTest.pt', env)
-model.learn(total_timesteps=200_000)
-model.save('sacMountainCarTest.pt')
+model.learn(total_timesteps=500_000)
+model.save('carRacingSAC.pt')
 vec_env = model.get_env()
 obs = vec_env.reset()
 for i in range(1000):
